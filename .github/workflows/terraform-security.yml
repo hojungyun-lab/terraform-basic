@@ -1,0 +1,136 @@
+# Terraform 보안 및 코드 품질 CI
+name: Terraform Security & Lint
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  # ─────────────────────────────────────────
+  # 1. terraform fmt & validate
+  # ─────────────────────────────────────────
+  terraform-validate:
+    name: Terraform Format & Validate
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        step:
+          - step01_setup
+          - step02_hcl_basics
+          - step03_commands
+          - step04_variables
+          - step05_datasources
+          - step06_state
+          - step07_modules
+          - step08_advanced_hcl
+          - step09_provisioners
+          - step10_workspaces
+          - step11_real_project
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.14.4"
+
+      - name: Terraform Format Check
+        run: terraform fmt -check -recursive
+        working-directory: ${{ matrix.step }}
+
+      - name: Terraform Init
+        run: terraform init -backend=false
+        working-directory: ${{ matrix.step }}
+
+      - name: Terraform Validate
+        run: terraform validate
+        working-directory: ${{ matrix.step }}
+
+  # ─────────────────────────────────────────
+  # 2. TFLint - Terraform Linter
+  # ─────────────────────────────────────────
+  tflint:
+    name: TFLint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v4
+        with:
+          tflint_version: latest
+
+      - name: Init TFLint
+        run: tflint --init
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Run TFLint (All Steps)
+        run: |
+          FAILED=0
+          for dir in step*/; do
+            echo "========================================="
+            echo "🔍 Linting: $dir"
+            echo "========================================="
+            tflint --chdir="$dir" --format=compact || FAILED=1
+          done
+          if [ "$FAILED" -eq 1 ]; then
+            echo "❌ TFLint found issues"
+            exit 1
+          fi
+          echo "✅ TFLint passed for all steps"
+
+  # ─────────────────────────────────────────
+  # 3. tfsec - Terraform Security Scanner
+  # ─────────────────────────────────────────
+  tfsec:
+    name: tfsec Security Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: tfsec Scan
+        uses: aquasecurity/tfsec-action@v1.0.3
+        with:
+          soft_fail: true
+          format: sarif
+          out: tfsec-results.sarif
+
+      - name: Upload tfsec SARIF
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: tfsec-results.sarif
+
+  # ─────────────────────────────────────────
+  # 4. Checkov - Policy-as-Code Scanner
+  # ─────────────────────────────────────────
+  checkov:
+    name: Checkov Security Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run Checkov
+        uses: bridgecrewio/checkov-action@v12
+        with:
+          directory: .
+          framework: terraform
+          soft_fail: true
+          output_format: cli
+          quiet: true

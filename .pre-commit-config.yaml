@@ -1,0 +1,59 @@
+# Pre-commit hooks 설정
+# 설치: pip install pre-commit && pre-commit install
+# 수동 실행: pre-commit run --all-files
+repos:
+  # ─────────────────────────────────────────
+  # Terraform fmt (코드 포맷팅)
+  # ─────────────────────────────────────────
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.96.3
+    hooks:
+      # terraform fmt - 코드 스타일 자동 정리
+      - id: terraform_fmt
+
+      # terraform validate - 문법 검증
+      - id: terraform_validate
+        args:
+          - --hook-config=--retry-once-with-cleanup=true
+
+      # tflint - Terraform 린터
+      - id: terraform_tflint
+        args:
+          - --args=--config=__GIT_WORKING_DIR__/.tflint.hcl
+
+      # tfsec - 보안 취약점 스캔
+      - id: terraform_tfsec
+        args:
+          - --args=--soft-fail
+
+      # terraform-docs - 문서 자동 생성 (선택)
+      - id: terraform_docs
+        args:
+          - --args=--output-file=DOCS.md
+          - --hook-config=--create-file-if-not-exist=true
+
+  # ─────────────────────────────────────────
+  # 일반 파일 검사
+  # ─────────────────────────────────────────
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      # 파일 끝 개행 확인
+      - id: end-of-file-fixer
+      # 줄 끝 공백 제거
+      - id: trailing-whitespace
+      # YAML 문법 검사
+      - id: check-yaml
+      # 대용량 파일 방지
+      - id: check-added-large-files
+        args: ['--maxkb=500']
+      # merge conflict 마커 검사
+      - id: check-merge-conflict
+
+  # ─────────────────────────────────────────
+  # Gitleaks - 시크릿 키 유출 방지
+  # ─────────────────────────────────────────
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.22.1
+    hooks:
+      - id: gitleaks

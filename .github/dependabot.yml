@@ -1,0 +1,103 @@
+# Dependabot configuration
+# https://docs.github.com/en/code-security/dependabot
+version: 2
+updates:
+  # GitHub Actions 버전 업데이트
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "ci"
+    commit-message:
+      prefix: "ci"
+
+  # Terraform Provider 버전 업데이트
+  - package-ecosystem: "terraform"
+    directory: "/step01_setup"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "terraform"
+
+  - package-ecosystem: "terraform"
+    directory: "/step02_hcl_basics"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "terraform"
+
+  - package-ecosystem: "terraform"
+    directory: "/step03_commands"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "terraform"
+
+  - package-ecosystem: "terraform"
+    directory: "/step04_variables"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "terraform"
+
+  - package-ecosystem: "terraform"
+    directory: "/step05_datasources"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "terraform"
+
+  - package-ecosystem: "terraform"
+    directory: "/step06_state"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "terraform"
+
+  - package-ecosystem: "terraform"
+    directory: "/step07_modules"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "terraform"
+
+  - package-ecosystem: "terraform"
+    directory: "/step08_advanced_hcl"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "terraform"
+
+  - package-ecosystem: "terraform"
+    directory: "/step09_provisioners"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "terraform"
+
+  - package-ecosystem: "terraform"
+    directory: "/step10_workspaces"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "terraform"
+
+  - package-ecosystem: "terraform"
+    directory: "/step11_real_project"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "terraform"
