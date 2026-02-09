@@ -8,6 +8,10 @@ terraform {
       source  = "kreuzwerker/docker"
       version = "~> 3.0"
     }
+    external = {
+      source  = "hashicorp/external"
+      version = "~> 2.0"
+    }
   }
 }
 
@@ -18,7 +22,7 @@ provider "docker" {}
 # ─────────────────────────────────────────────
 resource "docker_image" "nginx" {
   keep_locally = true
-  name = "nginx:alpine"
+  name         = "nginx:alpine"
 }
 
 resource "docker_container" "web" {

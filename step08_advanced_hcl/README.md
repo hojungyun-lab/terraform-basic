@@ -125,11 +125,11 @@ resource "docker_container" "named" {
 ```hcl
 locals {
   names = ["web", "api", "db"]
-  
+
   # 리스트 → 리스트 변환
   upper_names = [for n in local.names : upper(n)]
   # ["WEB", "API", "DB"]
-  
+
   # 조건부 필터링
   filtered = [for n in local.names : upper(n) if n != "db"]
   # ["WEB", "API"]
@@ -145,11 +145,11 @@ locals {
     api = 8081
     db  = 5432
   }
-  
+
   # 맵 → 맵 변환
   urls = { for k, v in local.ports : k => "http://localhost:${v}" }
   # { web = "http://localhost:8080", api = "http://localhost:8081", db = "http://localhost:5432" }
-  
+
   # 맵 → 리스트 변환
   port_list = [for k, v in local.ports : "${k}:${v}"]
   # ["web:8080", "api:8081", "db:5432"]
@@ -171,7 +171,7 @@ locals {
   is_prod     = var.environment == "prod"
   port        = local.is_prod ? 80 : 8080
   replica_count = local.is_prod ? 3 : 1
-  
+
   # 복합 조건
   log_level = (
     var.environment == "prod" ? "error" :
@@ -264,10 +264,10 @@ locals {
     var.common_labels,
     { created_by = "step08" }
   )
-  
+
   # format으로 문자열 포매팅
   container_name = format("%s-%s-%02d", var.project, var.environment, 1)
-  
+
   # flatten으로 중첩 리스트 평탄화
   all_ports = flatten([
     [80, 443],

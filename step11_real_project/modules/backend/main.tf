@@ -1,6 +1,8 @@
 # Backend 모듈 - 리소스 (App + Redis)
 
 terraform {
+  required_version = ">= 1.0"
+
   required_providers {
     docker = {
       source  = "kreuzwerker/docker"
@@ -14,7 +16,7 @@ terraform {
 # ─────────────────────────────────────────────
 resource "docker_image" "app" {
   keep_locally = true
-  name = "httpd:alpine"
+  name         = "httpd:alpine"
 }
 
 resource "docker_container" "app" {
@@ -57,7 +59,7 @@ resource "docker_container" "app" {
 # ─────────────────────────────────────────────
 resource "docker_image" "redis" {
   keep_locally = true
-  name = "redis:alpine"
+  name         = "redis:alpine"
 }
 
 resource "docker_container" "cache" {

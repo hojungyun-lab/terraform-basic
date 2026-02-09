@@ -21,8 +21,8 @@ provider "docker" {}
 # 로컬 변수 (locals)
 # ─────────────────────────────────────────────
 locals {
-  project     = "hcl-basics"
-  environment = "learning"
+  project        = "hcl-basics"
+  environment    = "learning"
   container_name = "${local.project}-nginx"
 
   # Map 타입 로컬 변수
@@ -40,7 +40,7 @@ locals {
 # 1. Docker 이미지 Pull
 resource "docker_image" "nginx" {
   keep_locally = true
-  name = "nginx:alpine"
+  name         = "nginx:alpine"
 }
 
 # 2. Docker 컨테이너 생성

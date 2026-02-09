@@ -27,10 +27,10 @@ project/
 ```
 project/
 ├── main.tf           # 모듈 호출, 데이터 소스
-├── variables.tf      
-├── outputs.tf        
-├── versions.tf       
-├── terraform.tfvars  
+├── variables.tf
+├── outputs.tf
+├── versions.tf
+├── terraform.tfvars
 ├── locals.tf         # 로컬 변수 모음
 ├── data.tf           # 데이터 소스 모음
 ├── modules/
@@ -159,7 +159,7 @@ terraform {
     key     = "state/terraform.tfstate"
     region  = "ap-northeast-2"
     encrypt = true  # 서버 사이드 암호화
-    
+
     dynamodb_table = "terraform-locks"  # State 잠금
   }
 }
@@ -186,23 +186,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.14.4
-      
+
       - name: Terraform Init
         run: terraform init
-      
+
       - name: Terraform Format Check
         run: terraform fmt -check -recursive
-      
+
       - name: Terraform Validate
         run: terraform validate
-      
+
       - name: Terraform Plan
         run: terraform plan -out=tfplan
-        
+
       # main 브랜치 푸시 시에만 Apply
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
@@ -236,7 +236,7 @@ PR 승인 & 병합
 resource "docker_container" "web" {
   name  = "web-server"
   image = docker_image.nginx.image_id
-  
+
   env = [
     "APP_ENV=production",
     "LOG_LEVEL=error",
@@ -312,7 +312,7 @@ provider "aws" {
 resource "aws_instance" "web" {
   ami           = "ami-0c55b159cbfafe1f0"
   instance_type = "t3.micro"
-  
+
   tags = {
     Name = "terraform-web"
   }
@@ -358,7 +358,7 @@ resource "azurerm_resource_group" "example" {
 terraform {
   cloud {
     organization = "my-org"
-    
+
     workspaces {
       name = "my-app-prod"
     }

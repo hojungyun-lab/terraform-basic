@@ -32,7 +32,7 @@ locals {
 # ─────────────────────────────────────────────
 resource "docker_image" "app" {
   keep_locally = true
-  name = var.docker_image
+  name         = var.docker_image
 }
 
 resource "docker_container" "web" {

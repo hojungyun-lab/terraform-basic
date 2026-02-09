@@ -84,7 +84,7 @@ terraform workspace list
 locals {
   # 환경별 이름 접두사
   name_prefix = "ws-${terraform.workspace}"
-  
+
   # 환경별 포트
   port_map = {
     default = 8093
@@ -92,7 +92,7 @@ locals {
     staging = 8095
     prod    = 8096
   }
-  
+
   # 환경별 설정
   config = {
     default = { replicas = 1, log_level = "debug" }
@@ -100,7 +100,7 @@ locals {
     staging = { replicas = 2, log_level = "info" }
     prod    = { replicas = 3, log_level = "error" }
   }
-  
+
   current_port   = lookup(local.port_map, terraform.workspace, 8093)
   current_config = lookup(local.config, terraform.workspace, local.config["default"])
 }
@@ -184,7 +184,7 @@ locals {
 ```hcl
 locals {
   is_prod = terraform.workspace == "prod"
-  
+
   container_count = local.is_prod ? 3 : 1
   enable_logging  = local.is_prod ? true : false
 }

@@ -27,7 +27,7 @@ data "docker_network" "bridge" {
 # ─────────────────────────────────────────────
 resource "docker_image" "nginx" {
   keep_locally = true
-  name = "nginx:alpine"
+  name         = "nginx:alpine"
 }
 
 # 리소스에서 데이터 소스 정보를 참조

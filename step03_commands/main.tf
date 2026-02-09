@@ -34,7 +34,7 @@ variable "external_port" {
 # ─────────────────────────────────────────────
 resource "docker_image" "nginx" {
   keep_locally = true
-  name = "nginx:alpine"
+  name         = "nginx:alpine"
 }
 
 resource "docker_container" "web" {

@@ -8,9 +8,9 @@ output "project_name" {
 output "network" {
   description = "네트워크 정보"
   value = {
-    name    = module.network.network_name
-    id      = module.network.network_id
-    subnet  = var.network_subnet
+    name   = module.network.network_name
+    id     = module.network.network_id
+    subnet = var.network_subnet
   }
 }
 

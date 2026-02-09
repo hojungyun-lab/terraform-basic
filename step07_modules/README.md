@@ -224,7 +224,7 @@ variable "instance_type" {
   description = "EC2 인스턴스 타입 (예: t3.micro)"
   type        = string
   default     = "t3.micro"
-  
+
   validation {
     condition     = contains(["t3.micro", "t3.small", "t3.medium"], var.instance_type)
     error_message = "허용된 인스턴스 타입: t3.micro, t3.small, t3.medium"

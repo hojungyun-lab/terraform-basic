@@ -296,10 +296,10 @@ terraform output -json
 locals {
   # 변수 조합
   full_name = "${var.project}-${var.environment}"
-  
+
   # 조건부 값
   is_production = var.environment == "prod"
-  
+
   # 공통 태그
   common_labels = {
     project     = var.project
@@ -307,7 +307,7 @@ locals {
     managed_by  = "terraform"
     created_at  = timestamp()
   }
-  
+
   # 계산된 값
   port_offset = var.environment == "prod" ? 0 : 1000
   actual_port = 80 + local.port_offset

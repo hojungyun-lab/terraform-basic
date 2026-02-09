@@ -33,7 +33,7 @@
 ```
 ✅ IaC 방식
 ├── infrastructure.tf  ← 코드로 인프라 정의
-├── git commit         ← 변경 이력 추적  
+├── git commit         ← 변경 이력 추적
 ├── terraform apply    ← 자동 배포
 └── terraform destroy  ← 자동 정리
 ```

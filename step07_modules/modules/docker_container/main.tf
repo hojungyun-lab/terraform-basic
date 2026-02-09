@@ -1,6 +1,8 @@
 # Docker Container 모듈 - 리소스 정의
 
 terraform {
+  required_version = ">= 1.0"
+
   required_providers {
     docker = {
       source  = "kreuzwerker/docker"
@@ -12,7 +14,7 @@ terraform {
 # Docker 이미지 Pull
 resource "docker_image" "this" {
   keep_locally = true
-  name = var.image
+  name         = var.image
 }
 
 # Docker 컨테이너 생성

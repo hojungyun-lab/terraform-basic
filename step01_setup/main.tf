@@ -20,7 +20,7 @@ provider "docker" {}
 # ─────────────────────────────────────────────
 resource "docker_image" "hello" {
   keep_locally = true
-  name = "hello-world:latest"
+  name         = "hello-world:latest"
 }
 
 # 출력으로 설치 확인

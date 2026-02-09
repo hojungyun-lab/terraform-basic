@@ -18,7 +18,7 @@ HCL의 모든 설정은 **블록** 단위로 구성된다.
 # 블록 기본 형태
 블록타입 "라벨1" "라벨2" {
   인자명 = 값
-  
+
   중첩블록 {
     인자명 = 값
   }
@@ -73,7 +73,7 @@ output "image_id" {
 # 문자열 (String)
 name = "hello-terraform"
 
-# 숫자 (Number) 
+# 숫자 (Number)
 port = 8080
 
 # 불리언 (Boolean)
@@ -126,7 +126,7 @@ variable "environment" {
 resource "docker_container" "web" {
   name = "${var.project}-${var.environment}"
   # 결과: "terraform-learning-dev"
-  
+
   image = docker_image.nginx.image_id
 }
 
@@ -150,7 +150,7 @@ locals {
 
 // 한 줄 주석 (슬래시) - C 스타일
 
-/* 
+/*
    여러 줄 주석
    블록 코멘트
 */
@@ -171,7 +171,7 @@ resource "docker_image" "nginx" {
 resource "docker_container" "web" {
   name  = "web-server"
   image = docker_image.nginx.image_id  # ← 다른 리소스 참조
-  
+
   ports {
     internal = 80
     external = 8080

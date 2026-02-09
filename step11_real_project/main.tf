@@ -58,10 +58,10 @@ module "frontend" {
 module "backend" {
   source = "./modules/backend"
 
-  project_name   = local.project
-  network_name   = module.network.network_name
-  app_port       = var.backend_port
-  labels         = local.common_labels
+  project_name = local.project
+  network_name = module.network.network_name
+  app_port     = var.backend_port
+  labels       = local.common_labels
 
   depends_on = [module.network]
 }

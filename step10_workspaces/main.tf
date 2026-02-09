@@ -44,7 +44,7 @@ locals {
 # ─────────────────────────────────────────────
 resource "docker_image" "nginx" {
   keep_locally = true
-  name = var.docker_image
+  name         = var.docker_image
 }
 
 # ─────────────────────────────────────────────

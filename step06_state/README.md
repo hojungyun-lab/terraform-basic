@@ -249,7 +249,7 @@ terraform {
     bucket = "my-terraform-state"
     key    = "prod/terraform.tfstate"
     region = "ap-northeast-2"
-    
+
     # DynamoDB로 State 잠금
     dynamodb_table = "terraform-locks"
     encrypt        = true

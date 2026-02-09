@@ -78,7 +78,7 @@ locals {
 # ─────────────────────────────────────────────
 resource "docker_image" "nginx" {
   keep_locally = true
-  name = "nginx:alpine"
+  name         = "nginx:alpine"
 }
 
 resource "docker_container" "counted" {

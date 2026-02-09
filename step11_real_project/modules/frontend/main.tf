@@ -1,6 +1,8 @@
 # Frontend 모듈 - 리소스 (Nginx)
 
 terraform {
+  required_version = ">= 1.0"
+
   required_providers {
     docker = {
       source  = "kreuzwerker/docker"
@@ -11,7 +13,7 @@ terraform {
 
 resource "docker_image" "nginx" {
   keep_locally = true
-  name = "nginx:alpine"
+  name         = "nginx:alpine"
 }
 
 resource "docker_container" "frontend" {

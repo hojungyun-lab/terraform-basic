@@ -25,7 +25,7 @@ resource "docker_network" "app_net" {
 # Docker 이미지
 resource "docker_image" "nginx" {
   keep_locally = true
-  name = "nginx:alpine"
+  name         = "nginx:alpine"
 }
 
 # Docker 컨테이너
@@ -73,7 +73,7 @@ output "web_url" {
 
 output "state_commands" {
   description = "이 단계에서 실습할 State 명령어"
-  value = <<-EOT
+  value       = <<-EOT
     terraform state list              # 리소스 목록
     terraform state show docker_container.web  # 상세 정보
     terraform state pull > backup.tfstate      # 백업
